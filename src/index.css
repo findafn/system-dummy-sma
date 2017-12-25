@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'sans-serif';
+}
+
+.loc-center {
+  text-align: center;
+  margin: 5px;
+}
+
+.logo-sbr {
+  text-align: center;
+  position: relative;
+  margin: 100px auto 100px auto;
+}
+
+.box {
+  width:1200px;
+  text-align: center;
+  position: relative;
+  margin: 30px auto;
+}
+
+.inner-box {
+  position: relative;
+  margin: 20px;
+  height:500px
+}
+
+.sma-box {
+  position: relative;
+  margin: 20px auto;
+  width: 700px;
+  
+}
+
+.detail-box {
+  position: relative;
+  margin: 20px;;
+  text-align:left;
+  font-size: 0.8em;
+  height:600px
+}
+
+.pojok {
+  margin:490px auto;
+}
+
+.btn-center {
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+}
+
+/* login */
+
+.login-page {
+  width:600px;
+  text-align: center;
+  position: relative;
+  margin: auto;
+}
+
+.login-form {
+  width: 300px;
+  text-align: center;
+  position: relative;
+  margin: 20px auto;
+}
+
+.login-footer {
+  text-align: center;
+  position: relative;
+  margin: 50px auto;
+}
