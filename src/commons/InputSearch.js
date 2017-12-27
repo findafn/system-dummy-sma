@@ -1,12 +1,21 @@
 import React from 'react';
-import { Button, Input } from 'semantic-ui-react';
+import { Input } from 'reactstrap';
 
-const InputSearch = () => (
-  <Input fluid type='text' placeholder='Masukkan ID SBR' action>
-    <input />
-    <Button type='submit'>Search</Button>
-    <Button type='submit'>Tambah</Button>
-  </Input>
-)
+class InputSearch extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange({ target }) {
+    this.props.onChangeSearch(target.value);
+  }
+  render() {
+    return (
+      <Input type='text' placeholder='Masukkan ID SBR'
+      value={this.props.idSBR} onChange={this.onChange}>
+      </Input>
+    );   
+  }
+}
 
 export default InputSearch;
