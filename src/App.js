@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import Survey from './components/Survey';
+//import Pendaftaran from './components/Pendaftaran';
 
 class App extends React.PureComponent {
   render() {

@@ -1,1 +1,1 @@
-system dummy SMA
+# system dummy SMA
