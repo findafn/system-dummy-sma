@@ -55,78 +55,91 @@ class Survey extends React.PureComponent {
       ...p,
       namaPerusahaan: e.target.value,
     }));
+    e.persist();
   }
   onChangeKomersial(e) {
     this.setState(p => ({
       ...p,
       namaKomersial: e.target.value,
     }));
+    e.persist();
   }
   onChangeKegiatan(e) {
     this.setState(p => ({
       ...p,
       kegiatanUtama: e.target.value,
     }));
+    e.persist();
   }
   onChangeKategori(e) {
     this.setState(p => ({
       ...p,
       kategoriKBLI: e.target.value,
     }));
+    e.persist();
   }
   onChangeProduk(e) {
     this.setState(p => ({
       ...p,
       produkUtama: e.target.value,
     }));
+    e.persist();
   }
   onChangeKode(e) {
     this.setState(p => ({
       ...p,
       kodeKBLI: e.target.value,
     }));
+    e.persist();
   }
   onChangeAlamat(e) {
     this.setState(p => ({
       ...p,
       alamat: e.target.value,
     }));
+    e.persist();
   }
   onChangeKota(e) {
     this.setState(p => ({
       ...p,
       kota: e.target.value,
     }));
+    e.persist();
   }
   onChangeProvinsi(e) {
     this.setState(p => ({
       ...p,
       provinsi: e.target.value,
     }));
+    e.persist();
   }
   onChangeProduksi(e) {
     this.setState(p => ({
       ...p,
       nilaiProduksi: e.target.value,
     }));
+    e.persist();
   }
   onChangeBalasJasa(e) {
     this.setState(p => ({
       ...p,
       nilaiBalasJasa: e.target.value,
     }));
+    e.persist();
   }
   onChangeTenagaKerja(e) {
     this.setState(p => ({
       ...p,
       totalTenagaKerja: e.target.value,
     }));
+    e.persist();
   }
   onChangePengeluaran(e) {
     this.setState(p => ({
       ...p,
       nilaiPengeluaran: e.target.value,
     }));
+    e.persist();
   }
   handleOptStatistik(e) {
     this.setState(p => ({
