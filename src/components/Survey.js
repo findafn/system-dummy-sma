@@ -166,166 +166,166 @@ class Survey extends React.PureComponent {
           <Row>
             <Col sm="6">
               <p>Cari Perusahaan</p>
-              <InputSearch idSBR={this.state.idSBR} onChangeSearch={this.onChangeSearch}/>
-              <ButtonSearch idSBR={this.state.idSBR} className="btn-center"/>
+              <InputSearch idSBR={this.state.idSBR} onChangeSearch={this.onChangeSearch} />
+              <ButtonSearch idSBR={this.state.idSBR} className="btn-center" />
             </Col>
           </Row><br />
           <Form onSubmit={this.handleSubmit}>
             <Row>
               <Col sm="6">
-                  <FormGroup row>
-                    <Label for="Nama-Perusahaan" sm={4}>Nama Perusahaan</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.namaPerusahaan} onChange={this.onChangePerusahaan} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Nama-Komersial" sm={4}>Nama Komersial</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nama-Komersial" value={this.state.namaKomersial} onChange={this.onChangeKomersial} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup tag="fieldset" row>
-                    <legend className="col-form-legend col-sm-4">Unit Statistik</legend>
-                    <Col sm={10}>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio2" />{' '}
-                          Enterprise Group
+                <FormGroup row>
+                  <Label for="Nama-Perusahaan" sm={4}>Nama Perusahaan</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nama-Perusahaan" value={this.state.namaPerusahaan} onChange={this.onChangePerusahaan} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Nama-Komersial" sm={4}>Nama Komersial</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nama-Komersial" value={this.state.namaKomersial} onChange={this.onChangeKomersial} />
+                  </Col>
+                </FormGroup>
+                <FormGroup tag="fieldset" row>
+                  <legend className="col-form-legend col-sm-4">Unit Statistik</legend>
+                  <Col sm={10}>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        Enterprise Group
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt2" checked={this.state.selectedOptionStatistik === 'opt2'} onChange={this.handleOptStatistik} name="radio2" />{' '}
-                          Unit Pengunjung
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt2" checked={this.state.selectedOptionStatistik === 'opt2'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        Unit Pengunjung
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt3" checked={this.state.selectedOptionStatistik === 'opt3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
-                          Enterprise
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt3" checked={this.state.selectedOptionStatistik === 'opt3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        Enterprise
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt4" checked={this.state.selectedOptionStatistik === 'opt4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
-                          Establishment
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt4" checked={this.state.selectedOptionStatistik === 'opt4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        Establishment
                         </Label>
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
-                  
-                  <FormGroup row>
-                    <Label for="Nama Perusahaan" sm={4}>Kegiatan Utama</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nama Perusahaan" value={this.state.kegiatanUtama} onChange={this.onChangeKegiatan} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Kategori-KBLI" sm={4}>Kategori KBLI</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Kategori-KBLI" value={this.state.kategoriKBLI} onChange={this.onChangeKategori} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Produk-Utama" sm={4}>Produk Utama</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Produk-Utama" value={this.state.produkUtama} onChange={this.onChangeProduk} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Kode-KBLI" sm={4}>Kode KBLI</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Kode-KBLI" value={this.state.kodeKBLI} onChange={this.onChangeKode} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Alamat" sm={4}>Alamat</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Alamat" value={this.state.alamat} onChange={this.onChangeAlamat} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Kabupaten-Kota" sm={4}>Kabupaten/Kota</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Kabupaten-Kota" value={this.state.kota} onChange={this.onChangeKota} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Provinsi" sm={4}>Provinsi</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Provinsi" value={this.state.provinsi} onChange={this.onChangeProvinsi} />
-                    </Col>
-                  </FormGroup>
-                  
-                  <FormGroup tag="fieldset" row>
-                    <legend className="col-form-legend col-sm-4">Status</legend>
-                    <Col sm={10}>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio3" />{' '}
-                          Aktif
+                    </FormGroup>
+                  </Col>
+                </FormGroup>
+
+                <FormGroup row>
+                  <Label for="Nama Perusahaan" sm={4}>Kegiatan Utama</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nama Perusahaan" value={this.state.kegiatanUtama} onChange={this.onChangeKegiatan} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Kategori-KBLI" sm={4}>Kategori KBLI</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Kategori-KBLI" value={this.state.kategoriKBLI} onChange={this.onChangeKategori} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Produk-Utama" sm={4}>Produk Utama</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Produk-Utama" value={this.state.produkUtama} onChange={this.onChangeProduk} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Kode-KBLI" sm={4}>Kode KBLI</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Kode-KBLI" value={this.state.kodeKBLI} onChange={this.onChangeKode} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Alamat" sm={4}>Alamat</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Alamat" value={this.state.alamat} onChange={this.onChangeAlamat} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Kabupaten-Kota" sm={4}>Kabupaten/Kota</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Kabupaten-Kota" value={this.state.kota} onChange={this.onChangeKota} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Provinsi" sm={4}>Provinsi</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Provinsi" value={this.state.provinsi} onChange={this.onChangeProvinsi} />
+                  </Col>
+                </FormGroup>
+
+                <FormGroup tag="fieldset" row>
+                  <legend className="col-form-legend col-sm-4">Status</legend>
+                  <Col sm={10}>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio3" />{' '}
+                        Aktif
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt5" checked={this.state.selectedOptionStatus === 'opt5'} onChange={this.handleOptStatus} name="radio3" />{' '}
-                          Tutup Sementara
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt5" checked={this.state.selectedOptionStatus === 'opt5'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        Tutup Sementara
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt6" checked={this.state.selectedOptionStatus === 'opt6'} onChange={this.handleOptStatus} name="radio3" />{' '}
-                          Alih Usaha
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt6" checked={this.state.selectedOptionStatus === 'opt6'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        Alih Usaha
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt7" checked={this.state.selectedOptionStatus === 'opt7'} onChange={this.handleOptStatus} name="radio3" />{' '}
-                          Tidak Ditemukan
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt7" checked={this.state.selectedOptionStatus === 'opt7'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        Tidak Ditemukan
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt8" checked={this.state.selectedOptionStatus === 'opt8'} onChange={this.handleOptStatus} name="radio3" />{' '}
-                          Belum Berproduksi
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt8" checked={this.state.selectedOptionStatus === 'opt8'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        Belum Berproduksi
                         </Label>
-                      </FormGroup>
-                      <FormGroup check>
-                        <Label check>
-                          <Input type="radio" value="opt9" checked={this.state.selectedOptionStatus === 'opt9'} onChange={this.handleOptStatus} name="radio3" />{' '}
-                          Tutup
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="opt9" checked={this.state.selectedOptionStatus === 'opt9'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        Tutup
                         </Label>
-                      </FormGroup>
-                    </Col>
-                  </FormGroup>
+                    </FormGroup>
+                  </Col>
+                </FormGroup>
               </Col>
               <Col sm="6">
-                  <FormGroup row>
-                    <Label for="Nilai-Produksi" sm={4}>Nilai Produksi</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nilai-Produksi" value={this.state.nilaiProduksi} onChange={this.onChangeProduksi} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Nilai-Balas-Jasa" sm={4}>Nilai Balas Jasa</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nilai-Balas-Jasa" value={this.state.nilaiBalasJasa} onChange={this.onChangeBalasJasa} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Tenaga-Kerja" sm={4}>Total Tenaga Kerja</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Tenaga-Kerja" value={this.state.totalTenagaKerja} onChange={this.onChangeTenagaKerja} />
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="Nilai-Pengeluaran" sm={4}>Nilai Pengeluaran</Label>
-                    <Col sm={8}>
-                        <Input type="text" name="text" id="Nama-Pengeluaran" value={this.state.nilaiPengeluaran} onChange={this.onChangePengeluaran} />
-                    </Col>
-                  </FormGroup>
-                </Col>
+                <FormGroup row>
+                  <Label for="Nilai-Produksi" sm={4}>Nilai Produksi</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nilai-Produksi" value={this.state.nilaiProduksi} onChange={this.onChangeProduksi} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Nilai-Balas-Jasa" sm={4}>Nilai Balas Jasa</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nilai-Balas-Jasa" value={this.state.nilaiBalasJasa} onChange={this.onChangeBalasJasa} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Tenaga-Kerja" sm={4}>Total Tenaga Kerja</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Tenaga-Kerja" value={this.state.totalTenagaKerja} onChange={this.onChangeTenagaKerja} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label for="Nilai-Pengeluaran" sm={4}>Nilai Pengeluaran</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="Nama-Pengeluaran" value={this.state.nilaiPengeluaran} onChange={this.onChangePengeluaran} />
+                  </Col>
+                </FormGroup>
+              </Col>
             </Row>
             <Row>
               <Col className="loc-center">
