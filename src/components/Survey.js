@@ -1,30 +1,32 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap';
-import { Input, Form, FormGroup, Label, Button } from 'reactstrap'
+import { Input, Form, FormGroup, Label, Button } from 'reactstrap';
+import axios from 'axios';
 
 import InputSearch from '../commons/InputSearch';
 import ButtonSearch from '../commons/ButtonSearch';
+import config from '../config';
 
 class Survey extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       idSBR: '',
-      namaPerusahaan: 'tes',
+      namaPerusahaan: '',
       namaKomersial: '',
       kegiatanUtama: '',
       kategoriKBLI: '',
       produkUtama: '',
       kodeKBLI: '',
       alamat: '',
-      kota: '',
-      provinsi: '',
+      kodeKabKot: '',
+      kodeProv: '',
       nilaiProduksi: '',
-      nilaiBalasJasa: '',
-      totalTenagaKerja: '',
+      nilaiUpah: '',
+      totalNaker: '',
       nilaiPengeluaran: '',
-      selectedOptionStatistik: 'opt1',
-      selectedOptionStatus: '',
+      unitStatistik: '',
+      status: '',
     };
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onChangePerusahaan = this.onChangePerusahaan.bind(this);
@@ -43,12 +45,57 @@ class Survey extends React.PureComponent {
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptStatus = this.handleOptStatus.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClickSearch = this.handleClickSearch.bind(this); 
   }
   onChangeSearch(idSBR) {
     this.setState(p => ({
       ...p,
       idSBR,
     }));
+    console.log(this.state.idSBR);
+  }
+  handleClickSearch() {
+    const urlEstablishment = config.liveSBRUrl + '/establishment/' + this.state.idSBR;
+    axios.get(urlEstablishment)
+      .then(({data}) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            namaPerusahaan: data.result.namaPerusahaan,
+            namaKomersial: data.result.namaKomersial,
+            kegiatanUtama: data.result.kegiatanUtama,
+            kategoriKBLI: data.result.katKBLI,
+            produkUtama: data.result.produkUtama,
+            kodeKBLI: data.result.kodeKBLI,
+            alamat: data.result.alamat,
+            kodeKabKot: data.result.kodeKabKot,
+            kodeProv: data.result.kodeProv,
+            unitStatistik: data.result.unitStatistik,
+            status: data.result.status,
+          }));
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        console.log("Tidak bisa mendapatkan data establishment");
+      });
+    const urlIndicator = config.liveSBRUrl + '/indicator/' + this.state.idSBR;
+    axios.get(urlIndicator)
+      .then(({data}) => {
+        if (data.success) {
+          this.setState(p => ({
+            ...p,
+            nilaiProduksi: data.result.nilaiProduksi,
+            nilaiUpah: data.result.nilaiUpah,
+            totalNaker: data.result.totalNaker,
+            nilaiPengeluaran: data.result.nilaiPengeluaran,
+          })); 
+        }
+      })
+      .catch(err => {
+        alert("Tidak bisa mendapatkan data indicator");
+      });
   }
   onChangePerusahaan(e) {
     this.setState(p => ({
@@ -102,14 +149,14 @@ class Survey extends React.PureComponent {
   onChangeKota(e) {
     this.setState(p => ({
       ...p,
-      kota: e.target.value,
+      kodeKabKot: e.target.value,
     }));
     e.persist();
   }
   onChangeProvinsi(e) {
     this.setState(p => ({
       ...p,
-      provinsi: e.target.value,
+      kodeProv: e.target.value,
     }));
     e.persist();
   }
@@ -123,14 +170,14 @@ class Survey extends React.PureComponent {
   onChangeBalasJasa(e) {
     this.setState(p => ({
       ...p,
-      nilaiBalasJasa: e.target.value,
+      nilaiUpah: e.target.value,
     }));
     e.persist();
   }
   onChangeTenagaKerja(e) {
     this.setState(p => ({
       ...p,
-      totalTenagaKerja: e.target.value,
+      totalNaker: e.target.value,
     }));
     e.persist();
   }
@@ -144,17 +191,17 @@ class Survey extends React.PureComponent {
   handleOptStatistik(e) {
     this.setState(p => ({
       ...p,
-      selectedOptionStatistik: e.target.value,
+      unitStatistik: e.target.value,
     }));
-    console.log('You have selected:', this.state.selectedOptionStatistik);
+    console.log('You have selected:', this.state.unitStatistik);
     e.persist();
   }
   handleOptStatus(e) {
     this.setState(p => ({
       ...p,
-      selectedOptionStatus: e.target.value,
+      status: e.target.value,
     }));
-    console.log('You have selected:', this.state.selectedOptionStatus);
+    console.log('You have selected:', this.state.status);
     e.persist();
   }
   handleSubmit(e) {
@@ -170,7 +217,7 @@ class Survey extends React.PureComponent {
             <Col sm="6">
               <p>Cari Perusahaan</p>
               <InputSearch idSBR={this.state.idSBR} onChangeSearch={this.onChangeSearch} />
-              <ButtonSearch idSBR={this.state.idSBR} className="btn-center" />
+              <ButtonSearch idSBR={this.state.idSBR} onClickSearch={this.handleClickSearch} className="btn-center" />
             </Col>
           </Row><br />
           <Form onSubmit={this.handleSubmit}>
@@ -193,25 +240,25 @@ class Survey extends React.PureComponent {
                   <Col sm={10}>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        <Input type="radio" value="1" checked={this.state.unitStatistik === '1'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Enterprise Group
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt2" checked={this.state.selectedOptionStatistik === 'opt2'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        <Input type="radio" value="2" checked={this.state.unitStatistik === '2'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Unit Pengunjung
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt3" checked={this.state.selectedOptionStatistik === 'opt3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        <Input type="radio" value="3" checked={this.state.unitStatistik === '3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Enterprise
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt4" checked={this.state.selectedOptionStatistik === 'opt4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        <Input type="radio" value="4" checked={this.state.unitStatistik === '4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Establishment
                         </Label>
                     </FormGroup>
@@ -251,13 +298,13 @@ class Survey extends React.PureComponent {
                 <FormGroup row>
                   <Label for="Kabupaten-Kota" sm={4}>Kabupaten/Kota</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Kabupaten-Kota" value={this.state.kota} onChange={this.onChangeKota} />
+                    <Input type="text" name="text" id="Kabupaten-Kota" value={this.state.kodeKabKot} onChange={this.onChangeKota} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Label for="Provinsi" sm={4}>Provinsi</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Provinsi" value={this.state.provinsi} onChange={this.onChangeProvinsi} />
+                    <Input type="text" name="text" id="Provinsi" value={this.state.kodeProv} onChange={this.onChangeProvinsi} />
                   </Col>
                 </FormGroup>
 
@@ -266,37 +313,37 @@ class Survey extends React.PureComponent {
                   <Col sm={10}>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt10" checked={this.state.selectedOptionStatus === 'opt10'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="1" checked={this.state.status === '1'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Aktif
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt5" checked={this.state.selectedOptionStatus === 'opt5'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="2" checked={this.state.status === '2'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Tutup Sementara
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt6" checked={this.state.selectedOptionStatus === 'opt6'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="3" checked={this.state.status === '3'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Alih Usaha
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt7" checked={this.state.selectedOptionStatus === 'opt7'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="4" checked={this.state.status === '4'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Tidak Ditemukan
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt8" checked={this.state.selectedOptionStatus === 'opt8'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="5" checked={this.state.status === '5'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Belum Berproduksi
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt9" checked={this.state.selectedOptionStatus === 'opt9'} onChange={this.handleOptStatus} name="radio3" />{' '}
+                        <Input type="radio" value="6" checked={this.state.status === '6'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Tutup
                         </Label>
                     </FormGroup>
@@ -313,13 +360,13 @@ class Survey extends React.PureComponent {
                 <FormGroup row>
                   <Label for="Nilai-Balas-Jasa" sm={4}>Nilai Balas Jasa</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Nilai-Balas-Jasa" value={this.state.nilaiBalasJasa} onChange={this.onChangeBalasJasa} />
+                    <Input type="text" name="text" id="Nilai-Balas-Jasa" value={this.state.nilaiUpah} onChange={this.onChangeBalasJasa} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Label for="Tenaga-Kerja" sm={4}>Total Tenaga Kerja</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Tenaga-Kerja" value={this.state.totalTenagaKerja} onChange={this.onChangeTenagaKerja} />
+                    <Input type="text" name="text" id="Tenaga-Kerja" value={this.state.totalNaker} onChange={this.onChangeTenagaKerja} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
