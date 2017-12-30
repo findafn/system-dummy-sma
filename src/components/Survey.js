@@ -147,12 +147,15 @@ class Survey extends React.PureComponent {
       selectedOptionStatistik: e.target.value,
     }));
     console.log('You have selected:', this.state.selectedOptionStatistik);
+    e.persist();
   }
   handleOptStatus(e) {
     this.setState(p => ({
       ...p,
       selectedOptionStatus: e.target.value,
     }));
+    console.log('You have selected:', this.state.selectedOptionStatus);
+    e.persist();
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -263,7 +266,7 @@ class Survey extends React.PureComponent {
                   <Col sm={10}>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="opt1" checked={this.state.selectedOptionStatistik === 'opt1'} onChange={this.handleOptStatistik} name="radio3" />{' '}
+                        <Input type="radio" value="opt10" checked={this.state.selectedOptionStatus === 'opt10'} onChange={this.handleOptStatus} name="radio3" />{' '}
                         Aktif
                         </Label>
                     </FormGroup>
