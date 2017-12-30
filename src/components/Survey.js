@@ -16,9 +16,10 @@ class Survey extends React.PureComponent {
       namaPerusahaan: '',
       namaKomersial: '',
       kegiatanUtama: '',
-      kategoriKBLI: '',
+      katKBLI: '',
       produkUtama: '',
       kodeKBLI: '',
+      npwp: '',
       alamat: '',
       kodeKabKot: '',
       kodeProv: '',
@@ -36,6 +37,7 @@ class Survey extends React.PureComponent {
     this.onChangeKategori = this.onChangeKategori.bind(this);
     this.onChangeProduk = this.onChangeProduk.bind(this);
     this.onChangeKode = this.onChangeKode.bind(this);
+    this.onChangeNPWP = this.onChangeNPWP.bind(this);
     this.onChangeAlamat = this.onChangeAlamat.bind(this);
     this.onChangeKota = this.onChangeKota.bind(this);
     this.onChangeProvinsi = this.onChangeProvinsi.bind(this);
@@ -46,7 +48,9 @@ class Survey extends React.PureComponent {
     this.handleOptStatistik = this.handleOptStatistik.bind(this);
     this.handleOptStatus = this.handleOptStatus.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClickSearch = this.handleClickSearch.bind(this); 
+    this.handleClickSearch = this.handleClickSearch.bind(this);
+    this.updateData = this.updateData.bind(this);
+    this.backData = this.backData.bind(this); 
   }
   onChangeSearch(idSBR) {
     this.setState(p => ({
@@ -64,9 +68,10 @@ class Survey extends React.PureComponent {
             namaPerusahaan: data.result.namaPerusahaan,
             namaKomersial: data.result.namaKomersial,
             kegiatanUtama: data.result.kegiatanUtama,
-            kategoriKBLI: data.result.katKBLI,
+            katKBLI: data.result.katKBLI,
             produkUtama: data.result.produkUtama,
             kodeKBLI: data.result.kodeKBLI,
+            npwp: data.result.npwp,
             alamat: data.result.alamat,
             kodeKabKot: data.result.kodeKabKot,
             kodeProv: data.result.kodeProv,
@@ -121,7 +126,7 @@ class Survey extends React.PureComponent {
   onChangeKategori(e) {
     this.setState(p => ({
       ...p,
-      kategoriKBLI: e.target.value,
+      katKBLI: e.target.value,
     }));
     e.persist();
   }
@@ -136,6 +141,13 @@ class Survey extends React.PureComponent {
     this.setState(p => ({
       ...p,
       kodeKBLI: e.target.value,
+    }));
+    e.persist();
+  }
+  onChangeNPWP(e) {
+    this.setState(p => ({
+      ...p,
+      npwp: e.target.value,
     }));
     e.persist();
   }
@@ -208,6 +220,43 @@ class Survey extends React.PureComponent {
     e.preventDefault();
     console.log('state: ', this.state);
   }
+  updateData(e){
+    e.preventDefault();
+    const { idSBR } = this.state;
+    const pembaruanTerakhir = Date.now();
+    const updaterTerakhir = 'SMA';
+    const { namaPerusahaan, namaKomersial, kegiatanUtama, katKBLI, produkUtama, kodeKBLI, 
+    npwp, alamat, kodeKabKot, kodeProv, unitStatistik, status } = this.state;
+    const dataEstablishment = { namaPerusahaan, namaKomersial, kegiatanUtama, katKBLI, produkUtama, kodeKBLI, 
+    npwp, alamat, kodeKabKot, kodeProv, unitStatistik, status, pembaruanTerakhir, updaterTerakhir };
+    const { nilaiProduksi, nilaiUpah, totalNaker, nilaiPengeluaran } = this.state;
+    const dataIndicator = { nilaiProduksi, nilaiUpah, totalNaker, nilaiPengeluaran, 
+    pembaruanTerakhir, updaterTerakhir };
+    axios.put(config.liveSBRUrl + '/establishment/' + idSBR, dataEstablishment)
+		.then(({data}) => {
+			if (data.success) {
+        axios.put(config.liveSBRUrl + '/indicator/' + idSBR, dataIndicator)
+        .then(({data}) => {
+          if (data.success){
+            alert("Update data berhasil.");
+          } else {
+            alert("Gagal.");
+          }
+        })
+        .then(() => {
+          this.handleClickSearch();
+        });
+      } else {
+        alert("Update data gagal.");
+        this.handleClickSearch();
+      }
+    });
+  }
+  backData(e){
+    e.preventDefault();
+    console.log('');
+    this.handleClickSearch();
+  }
   render() {
     return (
       <div className="sma-box">
@@ -256,34 +305,33 @@ class Survey extends React.PureComponent {
                     <FormGroup check>
                       <Label check>
                         <Input type="radio" value="2" checked={this.state.unitStatistik === '2'} onChange={this.handleOptStatistik} name="radio2" />{' '}
-                        Unit Pengunjung
-                        </Label>
-                    </FormGroup>
-                    <FormGroup check>
-                      <Label check>
-                        <Input type="radio" value="3" checked={this.state.unitStatistik === '3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Enterprise
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
-                        <Input type="radio" value="4" checked={this.state.unitStatistik === '4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        <Input type="radio" value="3" checked={this.state.unitStatistik === '3'} onChange={this.handleOptStatistik} name="radio2" />{' '}
                         Establishment
                         </Label>
                     </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" value="4" checked={this.state.unitStatistik === '4'} onChange={this.handleOptStatistik} name="radio2" />{' '}
+                        Unit Penunjang
+                        </Label>
+                    </FormGroup>
                   </Col>
-                </FormGroup>
-
+                </FormGroup>                
                 <FormGroup row>
-                  <Label for="Nama Perusahaan" sm={4}>Kegiatan Utama</Label>
+                  <Label for="Kegiatan-Utama" sm={4}>Kegiatan Utama</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Nama Perusahaan" value={this.state.kegiatanUtama} onChange={this.onChangeKegiatan} />
+                    <Input type="text" name="text" id="Kegiatan-Utama" value={this.state.kegiatanUtama} onChange={this.onChangeKegiatan} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
                   <Label for="Kategori-KBLI" sm={4}>Kategori KBLI</Label>
                   <Col sm={8}>
-                    <Input type="text" name="text" id="Kategori-KBLI" value={this.state.kategoriKBLI} onChange={this.onChangeKategori} />
+                    <Input type="text" name="text" id="Kategori-KBLI" value={this.state.katKBLI} onChange={this.onChangeKategori} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -299,19 +347,25 @@ class Survey extends React.PureComponent {
                   </Col>
                 </FormGroup>
                 <FormGroup row>
+                  <Label for="npwp" sm={4}>NPWP</Label>
+                  <Col sm={8}>
+                    <Input type="text" name="text" id="npwp" value={this.state.npwp} onChange={this.onChangeNPWP} />
+                  </Col>
+                </FormGroup>
+                <FormGroup row>
                   <Label for="Alamat" sm={4}>Alamat</Label>
                   <Col sm={8}>
                     <Input type="text" name="text" id="Alamat" value={this.state.alamat} onChange={this.onChangeAlamat} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label for="Kabupaten-Kota" sm={4}>Kabupaten/Kota</Label>
+                  <Label for="Kabupaten-Kota" sm={4}>Kode Kabupaten/Kota</Label>
                   <Col sm={8}>
                     <Input type="text" name="text" id="Kabupaten-Kota" value={this.state.kodeKabKot} onChange={this.onChangeKota} />
                   </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label for="Provinsi" sm={4}>Provinsi</Label>
+                  <Label for="Provinsi" sm={4}>Kode Provinsi</Label>
                   <Col sm={8}>
                     <Input type="text" name="text" id="Provinsi" value={this.state.kodeProv} onChange={this.onChangeProvinsi} />
                   </Col>
@@ -388,8 +442,8 @@ class Survey extends React.PureComponent {
             </Row>
             <Row>
               <Col className="loc-center">
-                <Button className="btn-center" type="submit" color="info">Simpan</Button>
-                <Button className="btn-center">Batal</Button>
+                <Button className="btn-center" onClick={this.updateData} color="info">Simpan</Button>
+                <Button className="btn-center" onClick={this.backData}>Batal</Button>
               </Col>
             </Row>
           </Form>
