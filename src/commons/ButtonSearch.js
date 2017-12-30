@@ -7,7 +7,7 @@ class ButtonSearch extends React.PureComponent {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    console.log('id ',this.props.idSBR);
+    this.props.onClickSearch();
   }
   render() {
     return (
