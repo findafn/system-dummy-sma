@@ -11,7 +11,7 @@ class ButtonSearch extends React.PureComponent {
   }
   render() {
     return (
-        <Button onClick={this.handleClick}>Search</Button>
+        <Button color="info" onClick={this.handleClick}>Search</Button>
     );   
   }
 

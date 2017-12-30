@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap';
-import { Input, Form, FormGroup, Label, Button } from 'reactstrap'
+import { Input, Form, FormGroup, Label, Button, Nav, NavLink, NavItem } from 'reactstrap'
+import { Link, NavLink as RRNavLink, withRouter } from 'react-router-dom';
 
 import InputSearch from '../commons/InputSearch';
 import ButtonSearch from '../commons/ButtonSearch';
@@ -49,6 +50,7 @@ class Survey extends React.PureComponent {
       ...p,
       idSBR,
     }));
+    console.log(this.state.idSBR);
   }
   onChangePerusahaan(e) {
     this.setState(p => ({
@@ -166,11 +168,20 @@ class Survey extends React.PureComponent {
       <div className="sma-box">
         <h3>Survey Tenaga Kerja Perusahaan</h3><br />
         <Container>
+          <p>Cari Perusahaan</p>
           <Row>
-            <Col sm="6">
-              <p>Cari Perusahaan</p>
+            <Col sm="6" className="center-padding">
               <InputSearch idSBR={this.state.idSBR} onChangeSearch={this.onChangeSearch} />
-              <ButtonSearch idSBR={this.state.idSBR} className="btn-center" />
+            </Col>
+            <Col sm="2"  className="center-padding">
+              <ButtonSearch idSBR={this.state.idSBR} />
+            </Col>
+            <Col sm="2" >
+              <Nav>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to="/pendaftaran"><Button  color="info">Tambah</Button></NavLink>
+                </NavItem>
+              </Nav>
             </Col>
           </Row><br />
           <Form onSubmit={this.handleSubmit}>
@@ -343,4 +354,4 @@ class Survey extends React.PureComponent {
   }
 }
 
-export default Survey;
+export default withRouter(Survey);
