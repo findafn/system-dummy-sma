@@ -244,11 +244,11 @@ class Survey extends React.PureComponent {
           }
         })
         .then(() => {
-          this.handleClickSearch();
+          window.location = "/";
         });
       } else {
         alert("Update data gagal.");
-        this.handleClickSearch();
+        window.location = "/";
       }
     });
   }

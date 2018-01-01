@@ -157,7 +157,16 @@ class Pendaftaran extends React.PureComponent {
 		data.tanggalEntryPertama = Date.now();
     axios.post(config.liveSBRUrl + '/establishment', data)
 		.then(({data}) => {
-			console.log(data);
+			if (data.success) {
+				alert('Data berhasil disimpan. ID SBR : ' + data.result.idSBR);
+			} else {
+				alert('NPWP Telah terdaftar pada Establishment dengan ID SBR : ' + data.result);
+			}
+			window.location = "/";
+		})
+		.catch((error) => {
+			alert('Terjadi error');
+			window.location = "/";
 		});
   }
 	renderSamping() {
